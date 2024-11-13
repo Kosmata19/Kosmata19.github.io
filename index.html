@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { CheckCircle2, XCircle } from 'lucide-react';
+
+export default function Test() {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [score, setScore] = useState(0);
+  
+  const questions = [
+    {
+      question: "Na czym polega interdyscyplinarność nauki o komunikowaniu?",
+      answers: [
+        "Dotyczy tylko psychologii i socjologii",
+        "Łączy wiedzę z różnych dziedzin, takich jak psychologia, socjologia, lingwistyka, antropologia i medioznawstwo",
+        "Skupia się wyłącznie na mediach"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Interdyscyplinarność nauki o komunikowaniu polega na łączeniu i wykorzystywaniu wiedzy z różnych dziedzin nauki, w tym psychologii (procesy poznawcze), socjologii (kontekst społeczny), lingwistyki (język), antropologii (aspekty kulturowe) oraz medioznawstwa.",
+        incorrect: [
+          "To zbyt wąskie ujęcie, pomijające wiele istotnych dziedzin.",
+          "Media to tylko jeden z aspektów nauki o komunikowaniu."
+        ]
+      }
+    },
+    {
+      question: "Co to jest kod w komunikacji?",
+      answers: [
+        "Tylko alfabet",
+        "System znaków wraz z regułami ich łączenia i interpretacji",
+        "Wyłącznie język mówiony"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Kod to system znaków wraz z regułami ich łączenia i interpretacji. Jest to zorganizowany zbiór znaków i zasad ich używania, pozwalający na tworzenie znaczących komunikatów.",
+        incorrect: [
+          "Alfabet to tylko jeden z przykładów kodu.",
+          "Język mówiony to tylko jedna z form kodu."
+        ]
+      }
+    },
+    {
+      question: "Czym charakteryzuje się komunikowanie masowe?",
+      answers: [
+        "Jest zawsze dwukierunkowe",
+        "Jest jednokierunkowe, kierowane do szerokiej, heterogenicznej publiczności",
+        "Dotyczy tylko komunikacji bezpośredniej"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Komunikowanie masowe charakteryzuje się jednokierunkowym przekazem do szerokiej, heterogenicznej publiczności. Jest pośrednie, szybkie i ma charakter publiczny.",
+        incorrect: [
+          "Komunikowanie masowe jest zazwyczaj jednokierunkowe, z ograniczonym sprzężeniem zwrotnym.",
+          "Komunikowanie masowe jest z definicji pośrednie, wymaga medium."
+        ]
+      }
+    },
+    {
+      question: "Jaką rolę pełni znak w procesie komunikacji?",
+      answers: [
+        "Jest podstawową jednostką znaczącą, składającą się z elementu oznaczającego i oznaczanego",
+        "Służy tylko do zapisu tekstu",
+        "Jest używany wyłącznie w komunikacji wizualnej"
+      ],
+      correct: 0,
+      explanation: {
+        correct: "Znak to podstawowa jednostka znacząca w komunikacji, składająca się z elementu oznaczającego (formy) i oznaczanego (znaczenia). Może być symbolem, ikoną lub indeksem.",
+        incorrect: [
+          "Znak ma szersze zastosowanie niż tylko zapis tekstu.",
+          "Znaki są używane we wszystkich formach komunikacji, nie tylko wizualnej."
+        ]
+      }
+    },
+    {
+      question: "Jakie funkcje pełni przekaz medialny?",
+      answers: [
+        "Wyłącznie informacyjną",
+        "Tylko rozrywkową i edukacyjną",
+        "Informacyjną, edukacyjną, rozrywkową, opiniotwórczą, kontrolną i integracyjną"
+      ],
+      correct: 2,
+      explanation: {
+        correct: "Przekaz medialny pełni wiele funkcji: informacyjną (dostarczanie wiedzy), edukacyjną (kształcenie), rozrywkową (relaks), opiniotwórczą (kształtowanie poglądów), kontrolną (nadzór nad władzą) oraz integracyjną (budowanie wspólnoty).",
+        incorrect: [
+          "Funkcja informacyjna to tylko jedna z wielu funkcji przekazu medialnego.",
+          "Rozrywka i edukacja to ważne, ale nie jedyne funkcje przekazu medialnego."
+        ]
+      }
+    },
+    {
+      question: "Co zakłada model Lasswella w procesie komunikowania?",
+      answers: [
+        "Tylko nadawcę i odbiorcę",
+        "Pięć elementów: kto mówi, co mówi, jakim kanałem, do kogo i z jakim skutkiem",
+        "Wyłącznie treść przekazu"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Model Lasswella opiera się na pięciu kluczowych elementach procesu komunikacji: kto mówi, co mówi, jakim kanałem, do kogo i z jakim skutkiem. Jest to model jednokierunkowy, często stosowany w analizie komunikacji masowej.",
+        incorrect: [
+          "Model Lasswella uwzględnia więcej elementów niż tylko nadawcę i odbiorcę.",
+          "Model analizuje nie tylko treść, ale cały proces komunikacji."
+        ]
+      }
+    },
+    {
+      question: "Na czym polega model Jakobsona w komunikacji?",
+      answers: [
+        "Na analizie wyłącznie nadawcy",
+        "Na sześciu funkcjach językowych odpowiadających elementom procesu komunikacji",
+        "Tylko na badaniu odbiorcy"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Model Jakobsona wyróżnia sześć funkcji językowych (emotywna, poznawcza, poetycka, fatyczna, metalingwistyczna, konatywna), które odpowiadają różnym elementom procesu komunikacji.",
+        incorrect: [
+          "Model analizuje więcej elementów niż tylko nadawcę.",
+          "Model nie ogranicza się do badania odbiorcy."
+        ]
+      }
+    },
+    {
+      question: "Co wprowadza model Schramma do teorii komunikacji?",
+      answers: [
+        "Tylko analizę nadawcy",
+        "Pojęcie sprzężenia zwrotnego i wspólnego obszaru doświadczeń",
+        "Wyłącznie badanie kanału komunikacji"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Model Schramma wprowadza pojęcie sprzężenia zwrotnego oraz podkreśla znaczenie wspólnego obszaru doświadczeń nadawcy i odbiorcy dla skutecznej komunikacji.",
+        incorrect: [
+          "Model nie ogranicza się do analizy nadawcy.",
+          "Model analizuje więcej elementów niż tylko kanał komunikacji."
+        ]
+      }
+    },
+    {
+      question: "Jakie są zasady emisji reklamy w telewizji?",
+      answers: [
+        "Brak ograniczeń czasowych",
+        "Maksymalnie 12 minut reklam na godzinę i wyraźne oddzielenie od programu",
+        "Całkowity zakaz reklam"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Zasady emisji reklamy w telewizji obejmują limit czasowy (12 minut na godzinę), wyraźne oddzielenie treści reklamowych od programu, oraz szczególne zasady dotyczące określonych produktów i pasm dziecięcych.",
+        incorrect: [
+          "Istnieją ścisłe ograniczenia czasowe dla reklam.",
+          "Reklamy są dozwolone, ale podlegają regulacjom."
+        ]
+      }
+    },
+    {
+      question: "Jaka jest rola języka w procesie komunikacji?",
+      answers: [
+        "Jest tylko narzędziem zapisu",
+        "Jest najbardziej rozwiniętym systemem kodów, umożliwiającym tworzenie nieograniczonej liczby komunikatów",
+        "Służy wyłącznie do komunikacji ustnej"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Język jest najbardziej rozwiniętym systemem kodów, który łączy w sobie znaki (słowa) i reguły ich łączenia (gramatykę), umożliwiając tworzenie nieograniczonej liczby komunikatów.",
+        incorrect: [
+          "Język pełni znacznie szerszą rolę niż tylko zapis.",
+          "Język służy zarówno komunikacji ustnej jak i pisemnej."
+        ]
+      }
+    }
+  ];
+
+  const handleAnswer = (answerIndex) => {
+    setSelectedAnswer(answerIndex);
+    setShowExplanation(true);
+    if (answerIndex === questions[currentQuestion].correct) {
+      setScore(score + 1);
+    }
+  };
+
+  const nextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setShowExplanation(false);
+      setSelectedAnswer(null);
+    }
+  };
+
+  const restartTest = () => {
+    setCurrentQuestion(0);
+    setShowExplanation(false);
+    setSelectedAnswer(null);
+    setScore(0);
+  };
+
+  return (
+    <Card className="w-full max-w-3xl mx-auto">
+      <CardHeader>
+        <CardTitle className="text-xl">
+          Test z nauki o komunikowaniu (Pytanie {currentQuestion + 1}/{questions.length})
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div className="font-medium text-lg">
+            {questions[currentQuestion].question}
+          </div>
+          
+          <div className="space-y-2">
+            {questions[currentQuestion].answers.map((answer, index) => (
+              <Button
+                key={index}
+                className={`w-full justify-start text-left ${
+                  selectedAnswer === index 
+                    ? index === questions[currentQuestion].correct
+                      ? 'bg-green-500 hover:bg-green-600'
+                      : 'bg-red-500 hover:bg-red-600'
+                    : ''
+                }`}
+                onClick={() => handleAnswer(index)}
+                disabled={showExplanation}
+              >
+                {showExplanation && index === questions[currentQuestion].correct && (
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                )}
+                {showExplanation && selectedAnswer === index && index !== questions[currentQuestion].correct && (
+                  <XCircle className="mr-2 h-4 w-4" />
+                )}
+                {answer}
+              </Button>
+            ))}
+          </div>
+
+          {showExplanation && (
+            <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+              <h3 className="font-bold mb-2">Wyjaśnienie:</h3>
+              <p className="mb-2">{questions[currentQuestion].explanation.correct}</p>
+              {selectedAnswer !== questions[currentQuestion].correct && (
+                <p className="text-red-600">
+                  Twoja odpowiedź była nieprawidłowa: {questions[currentQuestion].explanation.incorrect[selectedAnswer > questions[currentQuestion].correct ? selectedAnswer - 1 : selectedAnswer]}
+                </p>
+              )}
+            </div>
+          )}
+
+          {showExplanation && currentQuestion < questions.length - 1 && (
+            <Button className="mt-4" onClick={nextQuestion}>
+              Następne pytanie
+            </Button>
+          )}
+
+          {currentQuestion === questions.length - 1 && showExplanation && (
+            <div className="mt-4 p-4 bg-blue-100 rounded-lg">
+              <h3 className="font-bold">Test zakończony!</h3>
+              <p>Twój wynik: {score}/{questions.length} poprawnych odpowiedzi</p>
+              <Button className="mt-4" onClick={restartTest}>
+                Rozpocznij test od nowa
+              </Button>
+            </div>
+          )}
+        </div>
+            
+      </CardContent>
+    </Card>
+  );
+}
+</script>
+            </body>
+</html>
