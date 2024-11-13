@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Test</title>
+  <style>
+    /* Basic styling to replicate the React component's look */
+    .card {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1em;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .question-title {
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+    .answer-button {
+      display: block;
+      width: 100%;
+      margin: 0.5em 0;
+      padding: 0.75em;
+      font-size: 1em;
+      text-align: left;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+    .answer-button.correct { background-color: #d4edda; }
+    .answer-button.incorrect { background-color: #f8d7da; }
+    .explanation { margin-top: 1em; padding: 1em; background-color: #f1f1f1; border-radius: 8px; }
+    .next-button, .restart-button {
+      display: inline-block;
+      margin-top: 1em;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div id="quiz-container" class="card">
+  <h2 id="question-title" class="question-title"></h2>
+  <div id="answer-buttons"></div>
+  <div id="explanation" class="explanation" style="display: none;"></div>
+  <button id="next-button" class="next-button" style="display: none;" onclick="nextQuestion()">Następne pytanie</button>
+  <button id="restart-button" class="restart-button" style="display: none;" onclick="restartTest()">Rozpocznij test od nowa</button>
+</div>
+
+<script>
+  const questions = [
+    {
+      question: "Na czym polega interdyscyplinarność nauki o komunikowaniu?",
+      answers: [
+        "Dotyczy tylko psychologii i socjologii",
+        "Łączy wiedzę z różnych dziedzin, takich jak psychologia, socjologia, lingwistyka, antropologia i medioznawstwo",
+        "Skupia się wyłącznie na mediach"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Interdyscyplinarność nauki o komunikowaniu polega na łączeniu i wykorzystywaniu wiedzy z różnych dziedzin nauki, w tym psychologii (procesy poznawcze), socjologii (kontekst społeczny), lingwistyki (język), antropologii (aspekty kulturowe) oraz medioznawstwa.",
+        incorrect: [
+          "To zbyt wąskie ujęcie, pomijające wiele istotnych dziedzin.",
+          "Media to tylko jeden z aspektów nauki o komunikowaniu."
+        ]
+      }
+    },
+    // Add remaining questions here following the same structure
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+  let selectedAnswer = null;
+
+  function loadQuestion() {
+    const question = questions[currentQuestion];
+    document.getElementById("question-title").innerText = `Pytanie ${currentQuestion + 1}/${questions.length}: ${question.question}`;
+    const answerButtons = document.getElementById("answer-buttons");
+    answerButtons.innerHTML = '';
+    
+    question.answers.forEach((answer, index) => {
+      const button = document.createElement("button");
+      button.innerText = answer;
+      button.className = 'answer-button';
+      button.onclick = () => handleAnswer(index);
+      button.disabled = selectedAnswer !== null;
+      answerButtons.appendChild(button);
+    });
+    
+    document.getElementById("explanation").style.display = "none";
+    document.getElementById("next-button").style.display = "none";
+    document.getElementById("restart-button").style.display = "none";
+  }
+
+  function handleAnswer(index) {
+    selectedAnswer = index;
+    const question = questions[currentQuestion];
+    const buttons = document.querySelectorAll(".answer-button");
+    
+    buttons.forEach((button, btnIndex) => {
+      if (btnIndex === question.correct) {
+        button.classList.add("correct");
+      } else if (btnIndex === selectedAnswer) {
+        button.classList.add("incorrect");
+      }
+      button.disabled = true;
+    });
+    
+    document.getElementById("explanation").style.display = "block";
+    if (index === question.correct) {
+      score++;
+      document.getElementById("explanation").innerText = question.explanation.correct;
+    } else {
+      document.getElementById("explanation").innerText = question.explanation.incorrect[selectedAnswer > question.correct ? selectedAnswer - 1 : selectedAnswer];
+    }
+
+    if (currentQuestion < questions.length - 1) {
+      document.getElementById("next-button").style.display = "inline-block";
+    } else {
+      document.getElementById("restart-button").style.display = "inline-block";
+      document.getElementById("explanation").innerHTML += `<p>Twój wynik: ${score}/${questions.length} poprawnych odpowiedzi</p>`;
+    }
+  }
+
+  function nextQuestion() {
+    currentQuestion++;
+    selectedAnswer = null;
+    loadQuestion();
+  }
+
+  function restartTest() {
+    currentQuestion = 0;
+    score = 0;
+    selectedAnswer = null;
+    loadQuestion();
+  }
+
+  // Initial load
+  loadQuestion();
+</script>
+
+</body>
+</html>
