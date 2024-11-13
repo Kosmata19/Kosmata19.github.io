@@ -5,44 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Test</title>
   <style>
-    /* Basic styling to replicate the React component's look */
+        * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f9fafb;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
     .card {
       width: 100%;
       max-width: 600px;
-      margin: 0 auto;
-      padding: 1em;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      padding: 1.5em;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
     }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
     .question-title {
-      font-size: 1.5em;
-      margin-bottom: 1em;
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-bottom: 1.2em;
+      color: #2d3748;
+      text-align: center;
     }
+
     .answer-button {
       display: block;
       width: 100%;
-      margin: 0.5em 0;
+      margin: 0.6em 0;
       padding: 0.75em;
       font-size: 1em;
       text-align: left;
-      cursor: pointer;
+      background-color: #e2e8f0;
+      color: #333;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
     }
-    .answer-button.correct { background-color: #d4edda; }
-    .answer-button.incorrect { background-color: #f8d7da; }
-    .explanation { margin-top: 1em; padding: 1em; background-color: #f1f1f1; border-radius: 8px; }
+
+    .answer-button:hover {
+      background-color: #cbd5e0;
+      transform: translateY(-2px);
+    }
+
+    .answer-button:active {
+      transform: translateY(1px);
+    }
+
+    .answer-button.correct {
+      background-color: #48bb78; /* green */
+      color: white;
+    }
+
+    .answer-button.incorrect {
+      background-color: #f56565; /* red */
+      color: white;
+    }
+
+    .explanation {
+      margin-top: 1.5em;
+      padding: 1em;
+      background-color: #f7fafc;
+      border-left: 4px solid #63b3ed;
+      border-radius: 8px;
+      color: #2d3748;
+    }
+
     .next-button, .restart-button {
       display: inline-block;
-      margin-top: 1em;
-      padding: 0.5em 1em;
+      margin-top: 1.2em;
+      padding: 0.6em 1em;
       font-size: 1em;
       cursor: pointer;
       border: none;
-      border-radius: 4px;
-      background-color: #007bff;
+      border-radius: 8px;
+      background-color: #3182ce; /* blue */
       color: white;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .next-button:hover, .restart-button:hover {
+      background-color: #2b6cb0;
+    }
+
+    .next-button:active, .restart-button:active {
+      transform: translateY(1px);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      .card {
+        padding: 1em;
+        margin: 10px;
+      }
+
+      .question-title {
+        font-size: 1.2em;
+      }
+
+      .answer-button {
+        padding: 0.6em;
+        font-size: 0.95em;
+      }
+
+      .next-button, .restart-button {
+        font-size: 0.95em;
+        padding: 0.5em 0.9em;
+      }
     }
   </style>
 </head>
@@ -74,7 +159,903 @@
         ]
       }
     },
-    // Add remaining questions here following the same structure
+    {
+      question: "Co to jest layout w kontekście grafiki komputerowej?",
+      answers: [
+        "Układ graficzny składający się z poszczególnych elementów, stosowany w publikacjach elektronicznych i tradycyjnych",
+        "Program do edycji grafiki wektorowej",
+        "Efekt specjalny stosowany w fotografii cyfrowej"
+      ],
+      correct: 0,
+      explanation: {
+        correct: "Layout to układ graficzny składający się z poszczególnych elementów, wykorzystywany zarówno w publikacjach elektronicznych jak i tradycyjnych. Pełni funkcję szablonu i jest kluczowy w organizacji treści wizualnych.",
+        incorrect: [
+          "Program do edycji grafiki wektorowej to nie layout - to definicja programów takich jak Adobe Illustrator czy CorelDRAW.",
+          "Efekt specjalny w fotografii nie ma związku z layoutem, który dotyczy układu elementów na stronie lub w publikacji."
+        ]
+      }
+    },
+    {
+      question: "Jaka jest główna różnica między kolorem a barwą?",
+      answers: [
+        "Nie ma żadnej różnicy, to synonimy",
+        "Kolor to pojęcie szersze, obejmujące odcień, nasycenie i jasność, podczas gdy barwa to jedna z właściwości koloru",
+        "Barwa to pojęcie szersze niż kolor"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Kolor jest pojęciem szerszym, obejmującym wszystkie cechy wizualne światła: odcień (barwę), nasycenie i jasność. Barwa jest jedną z właściwości koloru, odpowiadającą za konkretny odcień.",
+        incorrect: [
+          "To nie są synonimy - istnieją między nimi istotne różnice w zakresie znaczenia i zastosowania.",
+          "To nieprawda - to kolor jest pojęciem szerszym, zawierającym w sobie barwę jako jedną ze swoich właściwości."
+        ]
+      }
+    },
+    {
+      question: "Czym charakteryzuje się grafika rastrowa?",
+      answers: [
+        "Opiera się na obiektach matematycznych i krzywych Beziera",
+        "Jest zapisem obrazu w postaci siatki pojedynczych pikseli, gdzie każdy przechowuje informacje o kolorze",
+        "Jest niezależna od rozdzielczości i można ją dowolnie skalować"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Grafika rastrowa to zapis obrazu w postaci siatki pikseli, gdzie każdy piksel przechowuje informacje o kolorze i przezroczystości. Jest idealna do fotografii i szczegółowych ilustracji.",
+        incorrect: [
+          "To jest charakterystyka grafiki wektorowej, nie rastrowej. Grafika rastrowa opiera się na pikselach, nie na obiektach matematycznych.",
+          "To również jest cecha grafiki wektorowej. Grafika rastrowa traci jakość przy skalowaniu i jest zależna od rozdzielczości."
+        ]
+      }
+    },
+    {
+      question: "Co to jest DTP?",
+      answers: [
+        "Digital Type Processing - proces przetwarzania tekstu cyfrowego",
+        "Desktop Publishing - proces tworzenia i układania dokumentów graficznych przy użyciu komputerów",
+        "Digital Text Preparation - przygotowanie tekstu do publikacji cyfrowej"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "DTP (Desktop Publishing) to proces tworzenia i układania dokumentów graficznych przy użyciu komputerów i specjalistycznego oprogramowania, służący do przygotowania materiałów do druku lub publikacji cyfrowej.",
+        incorrect: [
+          "DTP nie oznacza Digital Type Processing - to błędne rozwinięcie skrótu i niepoprawna definicja.",
+          "Digital Text Preparation to nieprawidłowe rozwinięcie skrótu DTP i nie oddaje pełnego zakresu tej dziedziny."
+        ]
+      }
+    },
+    {
+      question: "Jakie są podstawowe cechy infografiki?",
+      answers: [
+        "Służy wyłącznie do prezentacji danych statystycznych",
+        "To wyłącznie ozdobne elementy graficzne bez wartości informacyjnej",
+        "Łączy elementy graficzne z tekstem dla czytelnego i atrakcyjnego przekazu informacji"
+      ],
+      correct: 2,
+      explanation: {
+        correct: "Infografika to wizualna prezentacja informacji łącząca elementy graficzne z tekstem, której celem jest przekazanie złożonych informacji w przystępny i atrakcyjny sposób.",
+        incorrect: [
+          "Infografika nie ogranicza się tylko do danych statystycznych - może prezentować różnorodne informacje, procesy czy instrukcje.",
+          "Infografika nie jest tylko ozdobą - jej głównym celem jest efektywne przekazywanie informacji poprzez połączenie elementów graficznych i tekstowych."
+        ]
+      }
+    },
+    {
+      question: "Co to jest layout w kontekście grafiki komputerowej?",
+      answers: [
+        "Układ graficzny składający się z poszczególnych elementów, stosowany w publikacjach elektronicznych i tradycyjnych",
+        "Program do edycji grafiki wektorowej",
+        "Efekt specjalny stosowany w fotografii cyfrowej"
+      ],
+      correct: 0,
+      explanation: {
+        correct: "Layout to układ graficzny składający się z poszczególnych elementów, wykorzystywany zarówno w publikacjach elektronicznych jak i tradycyjnych. Pełni funkcję szablonu i jest kluczowy w organizacji treści wizualnych.",
+        incorrect: [
+          "Program do edycji grafiki wektorowej to nie layout - to definicja programów takich jak Adobe Illustrator czy CorelDRAW.",
+          "Efekt specjalny w fotografii nie ma związku z layoutem, który dotyczy układu elementów na stronie lub w publikacji."
+        ]
+      }
+    },
+    {
+      question: "Jaka jest główna różnica między kolorem a barwą?",
+      answers: [
+        "Nie ma żadnej różnicy, to synonimy",
+        "Kolor to pojęcie szersze, obejmujące odcień, nasycenie i jasność, podczas gdy barwa to jedna z właściwości koloru",
+        "Barwa to pojęcie szersze niż kolor"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Kolor jest pojęciem szerszym, obejmującym wszystkie cechy wizualne światła: odcień (barwę), nasycenie i jasność. Barwa jest jedną z właściwości koloru, odpowiadającą za konkretny odcień.",
+        incorrect: [
+          "To nie są synonimy - istnieją między nimi istotne różnice w zakresie znaczenia i zastosowania.",
+          "To nieprawda - to kolor jest pojęciem szerszym, zawierającym w sobie barwę jako jedną ze swoich właściwości."
+        ]
+      }
+    },
+    {
+      question: "Czym charakteryzuje się grafika rastrowa?",
+      answers: [
+        "Opiera się na obiektach matematycznych i krzywych Beziera",
+        "Jest zapisem obrazu w postaci siatki pojedynczych pikseli, gdzie każdy przechowuje informacje o kolorze",
+        "Jest niezależna od rozdzielczości i można ją dowolnie skalować"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "Grafika rastrowa to zapis obrazu w postaci siatki pikseli, gdzie każdy piksel przechowuje informacje o kolorze i przezroczystości. Jest idealna do fotografii i szczegółowych ilustracji.",
+        incorrect: [
+          "To jest charakterystyka grafiki wektorowej, nie rastrowej. Grafika rastrowa opiera się na pikselach, nie na obiektach matematycznych.",
+          "To również jest cecha grafiki wektorowej. Grafika rastrowa traci jakość przy skalowaniu i jest zależna od rozdzielczości."
+        ]
+      }
+    },
+    {
+      question: "Co to jest DTP?",
+      answers: [
+        "Digital Type Processing - proces przetwarzania tekstu cyfrowego",
+        "Desktop Publishing - proces tworzenia i układania dokumentów graficznych przy użyciu komputerów",
+        "Digital Text Preparation - przygotowanie tekstu do publikacji cyfrowej"
+      ],
+      correct: 1,
+      explanation: {
+        correct: "DTP (Desktop Publishing) to proces tworzenia i układania dokumentów graficznych przy użyciu komputerów i specjalistycznego oprogramowania, służący do przygotowania materiałów do druku lub publikacji cyfrowej.",
+        incorrect: [
+          "DTP nie oznacza Digital Type Processing - to błędne rozwinięcie skrótu i niepoprawna definicja.",
+          "Digital Text Preparation to nieprawidłowe rozwinięcie skrótu DTP i nie oddaje pełnego zakresu tej dziedziny."
+        ]
+      }
+    },
+    {
+      question: "Jakie są podstawowe cechy infografiki?",
+      answers: [
+        "Służy wyłącznie do prezentacji danych statystycznych",
+        "To wyłącznie ozdobne elementy graficzne bez wartości informacyjnej",
+        "Łączy elementy graficzne z tekstem dla czytelnego i atrakcyjnego przekazu informacji"
+      ],
+      correct: 2,
+      explanation: {
+        correct: "Infografika to wizualna prezentacja informacji łącząca elementy graficzne z tekstem, której celem jest przekazanie złożonych informacji w przystępny i atrakcyjny sposób.",
+        incorrect: [
+          "Infografika nie ogranicza się tylko do danych statystycznych - może prezentować różnorodne informacje, procesy czy instrukcje.",
+          "Infografika nie jest tylko ozdobą - jej głównym celem jest efektywne przekazywanie informacji poprzez połączenie elementów graficznych i tekstowych."
+        ]
+      }
+    },
+    {
+    question: "Na czym polega interdyscyplinarność nauki o komunikowaniu?",
+    answers: [
+      "Dotyczy tylko psychologii i socjologii",
+      "Łączy wiedzę z różnych dziedzin, takich jak psychologia, socjologia, lingwistyka, antropologia i medioznawstwo",
+      "Skupia się wyłącznie na mediach"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Interdyscyplinarność nauki o komunikowaniu polega na łączeniu i wykorzystywaniu wiedzy z różnych dziedzin nauki, w tym psychologii (procesy poznawcze), socjologii (kontekst społeczny), lingwistyki (język), antropologii (aspekty kulturowe) oraz medioznawstwa.",
+      incorrect: [
+        "To zbyt wąskie ujęcie, pomijające wiele istotnych dziedzin.",
+        "Media to tylko jeden z aspektów nauki o komunikowaniu."
+      ]
+    }
+  },
+  {
+    question: "Jakie cechy charakteryzują komunikowanie masowe?",
+    answers: [
+      "Komunikowanie indywidualne i prywatne",
+      "Jednokierunkowe, szybkie, pośrednie, skierowane do szerokiej publiczności",
+      "Wyłącznie komunikacja bezpośrednia"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Komunikowanie masowe jest jednokierunkowe, przekaz płynie od nadawcy do odbiorców, jest pośrednie (wymaga medium), publiczne i dociera do licznej, rozproszonej publiczności.",
+      incorrect: [
+        "Komunikowanie masowe nie jest indywidualne ani prywatne.",
+        "Komunikowanie masowe wymaga medium, nie jest bezpośrednie."
+      ]
+    }
+  },
+  {
+    question: "Co to jest znak w komunikacji?",
+    answers: [
+      "Podstawowa jednostka znacząca składająca się z elementu oznaczającego i oznaczanego",
+      "Wyłącznie symbol graficzny",
+      "Tylko litery alfabetu"
+    ],
+    correct: 0,
+    explanation: {
+      correct: "Znak to podstawowa jednostka znacząca, składająca się z elementu oznaczającego (formy) i oznaczanego (znaczenia). Może być symbolem, ikoną lub indeksem.",
+      incorrect: [
+        "Znak to nie tylko symbol graficzny, ale każda jednostka niosąca znaczenie.",
+        "Litery to tylko jeden z rodzajów znaków."
+      ]
+    }
+  },
+  {
+    question: "Co to jest kod w komunikacji?",
+    answers: [
+      "Tylko system zapisywania tekstu",
+      "System znaków wraz z regułami ich łączenia i interpretacji",
+      "Wyłącznie język mówiony"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Kod to system znaków wraz z regułami ich łączenia i interpretacji. Stanowi zorganizowany zbiór znaków i zasad ich używania, pozwalający na tworzenie znaczących komunikatów.",
+      incorrect: [
+        "Kod to nie tylko system zapisu tekstu.",
+        "Kod nie ogranicza się do języka mówionego."
+      ]
+    }
+  },
+  {
+    question: "Jaką rolę pełni język w komunikacji?",
+    answers: [
+      "Służy wyłącznie do zapisu tekstu",
+      "Jest najbardziej rozwiniętym systemem kodów, umożliwiającym tworzenie nieograniczonej liczby komunikatów",
+      "Jest używany tylko w mowie"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Język jest najbardziej rozwiniętym systemem kodów, łączącym znaki (słowa) i reguły ich łączenia (gramatykę), co pozwala na tworzenie nieograniczonej liczby komunikatów.",
+      incorrect: [
+        "Język służy nie tylko do zapisu.",
+        "Język jest używany zarówno w mowie jak i piśmie."
+      ]
+    }
+  },
+  {
+    question: "Jakie są główne funkcje przekazu medialnego?",
+    answers: [
+      "Tylko informacyjna i rozrywkowa",
+      "Wyłącznie edukacyjna",
+      "Informacyjna, edukacyjna, rozrywkowa, opiniotwórcza, kontrolna i integracyjna"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Przekaz medialny pełni wiele funkcji: informacyjną (dostarczanie wiedzy), edukacyjną (kształcenie), rozrywkową (relaks), opiniotwórczą (kształtowanie poglądów), kontrolną (nadzór) oraz integracyjną (budowanie wspólnoty).",
+      incorrect: [
+        "Przekaz medialny pełni więcej funkcji niż tylko informacyjna i rozrywkowa.",
+        "Funkcja edukacyjna to tylko jedna z wielu funkcji przekazu medialnego."
+      ]
+    }
+  },
+  {
+    question: "Co to jest model Lasswella w komunikacji?",
+    answers: [
+      "Tylko analiza odbiorcy",
+      "Model oparty na pięciu elementach: kto mówi, co mówi, jakim kanałem, do kogo i z jakim skutkiem",
+      "Wyłącznie badanie kanału komunikacji"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Model Lasswella to schemat komunikacji oparty na pięciu kluczowych pytaniach: kto mówi, co mówi, jakim kanałem, do kogo i z jakim skutkiem. Jest to model jednokierunkowy.",
+      incorrect: [
+        "Model Lasswella analizuje więcej elementów niż tylko odbiorcę.",
+        "Model nie ogranicza się do badania kanału komunikacji."
+      ]
+    }
+  },
+  {
+    question: "Jakie elementy zawiera model Shannona-Weavera?",
+    answers: [
+      "Tylko nadawcę i odbiorcę",
+      "Nadajnik, odbiornik i szumy komunikacyjne",
+      "Wyłącznie treść przekazu"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Model Shannona-Weavera wprowadza pojęcia nadajnika, odbiornika i szumów komunikacyjnych. Podkreśla techniczne aspekty transmisji sygnału i występowanie zakłóceń w procesie komunikacji.",
+      incorrect: [
+        "Model zawiera więcej elementów niż tylko nadawcę i odbiorcę.",
+        "Model nie ogranicza się do analizy treści przekazu."
+      ]
+    }
+  },
+  {
+    question: "Co wnosi model Schramma do teorii komunikacji?",
+    answers: [
+      "Tylko analizę treści",
+      "Pojęcie sprzężenia zwrotnego i znaczenie wspólnego obszaru doświadczeń",
+      "Wyłącznie badanie odbiorcy"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Model Schramma wprowadza pojęcie sprzężenia zwrotnego i podkreśla znaczenie wspólnego obszaru doświadczeń nadawcy i odbiorcy dla skutecznej komunikacji.",
+      incorrect: [
+        "Model nie ogranicza się do analizy treści.",
+        "Model analizuje więcej elementów niż tylko odbiorcę."
+      ]
+    }
+  },
+  {
+    question: "Jakie są główne zasady emisji reklamy w mediach?",
+    answers: [
+      "Brak jakichkolwiek ograniczeń",
+      "Wyraźne oddzielenie od programu, limity czasowe, ochrona małoletnich",
+      "Całkowity zakaz reklam"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Zasady emisji reklamy obejmują wyraźne oddzielenie treści reklamowych od programu, limity czasowe (np. 12 minut na godzinę w TV), ochronę małoletnich i szczególne regulacje dla określonych produktów.",
+      incorrect: [
+        "Istnieją ścisłe regulacje dotyczące emisji reklam.",
+        "Reklamy są dozwolone, ale podlegają regulacjom."
+      ]
+    }
+  },
+  {
+    question: "Czym różnią się media publiczne od mediów komercyjnych?",
+    answers: [
+      "Tylko sposobem nadawania",
+      "Sposobem finansowania, misją, obowiązkami i odpowiedzialnością",
+      "Wyłącznie zasięgiem"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Media publiczne i komercyjne różnią się sposobem finansowania (abonament vs reklamy), misją (społeczna vs zysk), odpowiedzialnością (przed społeczeństwem vs przed właścicielami) oraz obowiązkami (misja publiczna vs rynek).",
+      incorrect: [
+        "Różnice są znacznie szersze niż tylko sposób nadawania.",
+        "Zasięg nie jest głównym wyróżnikiem między mediami publicznymi a komercyjnymi."
+      ]
+    }
+  },
+  {
+    question: "Jakie są główne cechy mediów społecznościowych w porównaniu do mediów profesjonalnych?",
+    answers: [
+      "Tylko format cyfrowy",
+      "Interaktywność, treści tworzone przez użytkowników, szybkość przekazu, demokratyzacja dostępu",
+      "Wyłącznie zasięg"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Media społecznościowe charakteryzują się interaktywnością, treściami tworzonymi przez użytkowników, szybkością przekazu i demokratyzacją dostępu do publikowania treści.",
+      incorrect: [
+        "Format cyfrowy to tylko jeden z aspektów mediów społecznościowych.",
+        "Zasięg nie jest głównym wyróżnikiem mediów społecznościowych."
+      ]
+    }
+  },
+  {
+    question: "Jaką rolę odgrywają koncerny medialne w procesie komercjalizacji mediów w Polsce?",
+    answers: [
+      "Tylko dystrybucja treści",
+      "Profesjonalizacja mediów, wprowadzanie nowych technologii, kształtowanie standardów rynkowych",
+      "Wyłącznie sprzedaż reklam"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Koncerny medialne przyczyniły się do profesjonalizacji mediów, wprowadzenia nowych technologii i standardów zarządzania oraz rozwoju konkurencyjnego rynku medialnego w Polsce.",
+      incorrect: [
+        "Rola koncernów medialnych jest szersza niż sama dystrybucja treści.",
+        "Sprzedaż reklam to tylko jeden z aspektów działalności koncernów medialnych."
+      ]
+    }
+  },
+  {
+    question: "Na czym polega zjawisko tabloidyzacji mediów?",
+    answers: [
+      "Tylko zmiana formatu gazet",
+      "Upraszczanie przekazu, koncentracja na sensacji i emocjach kosztem poważnej informacji",
+      "Wyłącznie zmiana szaty graficznej"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Tabloidyzacja to proces upraszczania przekazu, koncentracji na sensacji i emocjach kosztem poważnej informacji i analizy, prowadzący do obniżenia standardów dziennikarskich.",
+      incorrect: [
+        "Tabloidyzacja to nie tylko kwestia formatu.",
+        "Zmiana szaty graficznej to tylko jeden z elementów tabloidyzacji."
+      ]
+    }
+  },
+  {
+    question: "Co to jest konwergencja mediów?",
+    answers: [
+      "Tylko łączenie się firm medialnych",
+      "Proces łączenia się różnych form i platform medialnych pod względem technologicznym i zawartości",
+      "Wyłącznie cyfryzacja mediów"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Konwergencja mediów to proces łączenia się różnych form i platform medialnych, zarówno pod względem technologicznym, jak i zawartości, prowadzący do integracji różnych form przekazu.",
+      incorrect: [
+        "Konwergencja to nie tylko proces biznesowy.",
+        "Cyfryzacja to tylko jeden z aspektów konwergencji mediów."
+      ]
+    }
+  },
+  {
+    question: "Na czym polega zjawisko fake news?",
+    answers: [
+      "Tylko błędy w relacjach medialnych",
+      "Celowo tworzone i rozpowszechniane fałszywe informacje mające na celu dezinformację",
+      "Wyłącznie plotki"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Fake news to celowo tworzone i rozpowszechniane fałszywe informacje, mające na celu dezinformację lub manipulację, charakteryzujące się sensacyjną formą i szybkim rozprzestrzenianiem.",
+      incorrect: [
+        "Fake news to nie przypadkowe błędy, ale celowe działanie.",
+        "To zjawisko szersze niż zwykłe plotki."
+      ]
+    }
+  },
+  {
+    question: "Czym jest bańka filtrująca w mediach?",
+    answers: [
+      "System zabezpieczeń w internecie",
+      "Zjawisko, w którym algorytmy selekcjonują treści zgodne z preferencjami użytkownika",
+      "Rodzaj cenzury"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Bańka filtrująca to zjawisko, w którym algorytmy mediów społecznościowych i wyszukiwarek selekcjonują treści pokazywane użytkownikowi na podstawie jego wcześniejszych zachowań i preferencji.",
+      incorrect: [
+        "To nie system zabezpieczeń, ale mechanizm personalizacji treści.",
+        "To nie forma cenzury, lecz automatyczna personalizacja."
+      ]
+    }
+  },
+  {
+    question: "Co to jest infotainment?",
+    answers: [
+      "Tylko rozrywka w mediach",
+      "Łączenie informacji z rozrywką w przekazie medialnym",
+      "Wyłącznie informacje"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Infotainment to zjawisko łączenia informacji z rozrywką, będące odpowiedzią na potrzeby odbiorców i presję komercyjną, gdzie forma często dominuje nad treścią.",
+      incorrect: [
+        "Infotainment to nie tylko rozrywka, ale połączenie jej z informacją.",
+        "To nie są wyłącznie informacje, ale ich połączenie z elementami rozrywkowymi."
+      ]
+    }
+  },
+  {
+    question: "Na czym polega mikrotargetowanie w mediach?",
+    answers: [
+      "Tylko segmentacja odbiorców",
+      "Precyzyjne kierowanie przekazu do wąsko zdefiniowanych grup odbiorców na podstawie ich cech",
+      "Wyłącznie reklama lokalna"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Mikrotargetowanie to technika precyzyjnego kierowania przekazu do wąsko zdefiniowanych grup odbiorców na podstawie ich szczegółowych cech demograficznych, behawioralnych i psychograficznych.",
+      incorrect: [
+        "To więcej niż prosta segmentacja odbiorców.",
+        "To nie tylko reklama lokalna, ale precyzyjna personalizacja przekazu."
+      ]
+    }
+  },
+  {
+    question: "Czym różnią się poszczególne rodzaje prasy?",
+    answers: [
+      "Tylko formatem wydania",
+      "Charakterem treści, częstotliwością wydawania, formą przekazu",
+      "Wyłącznie ceną"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Różne rodzaje prasy (dzienniki, czasopisma, prasa opinii, tabloidy) różnią się charakterem treści, częstotliwością wydawania, formą przekazu i grupą docelową.",
+      incorrect: [
+        "Różnice wykraczają poza sam format wydania.",
+        "Cena to tylko jeden z wielu aspektów różnicujących prasę."
+      ]
+    }
+  },
+  {
+   question: "Co to są składniki promotion-mix?",
+   answers: [
+     "Tylko reklama",
+     "Reklama, PR, sprzedaż osobista, promocja sprzedaży i marketing bezpośredni",
+     "Wyłącznie działania w internecie"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Promotion-mix to zestaw narzędzi promocyjnych obejmujący reklamę, public relations, sprzedaż osobistą, promocję sprzedaży oraz marketing bezpośredni, tworzących spójną strategię komunikacji marketingowej.",
+     incorrect: [
+       "Promotion-mix obejmuje więcej elementów niż sama reklama.",
+       "Działania internetowe to tylko część możliwych narzędzi promocyjnych."
+     ]
+   }
+ },
+ {
+   question: "Jakie są główne różnice między reklamą a public relations?",
+   answers: [
+     "Tylko koszt działań",
+     "Cel, czas oddziaływania, kontrola przekazu i wiarygodność",
+     "Wyłącznie zasięg"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Reklama jest płatną formą komunikacji masowej nastawioną na szybkie efekty sprzedażowe, podczas gdy PR koncentruje się na budowaniu długofalowych relacji i wizerunku, wykorzystując niepłatne formy przekazu.",
+     incorrect: [
+       "Różnice są szersze niż tylko koszty.",
+       "Zasięg nie jest głównym wyróżnikiem między reklamą a PR."
+     ]
+   }
+ },
+ {
+   question: "Jakie są podstawowe narzędzia public relations?",
+   answers: [
+     "Tylko komunikaty prasowe",
+     "Media relations, komunikacja wewnętrzna, wydarzenia, CSR, zarządzanie kryzysowe",
+     "Wyłącznie reklama"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Narzędzia PR obejmują media relations, komunikację wewnętrzną, wydarzenia specjalne, CSR, zarządzanie kryzysowe, sponsoring i public affairs.",
+     incorrect: [
+       "Komunikaty prasowe to tylko jedno z wielu narzędzi PR.",
+       "PR wykorzystuje inne narzędzia niż reklama."
+     ]
+   }
+ },
+ {
+   question: "Jaka jest rola komunikacji marketingowej w różnych fazach cyklu życia produktu?",
+   answers: [
+     "Taka sama w każdej fazie",
+     "Różni się w zależności od fazy: wprowadzenie (informowanie), wzrost (przekonywanie), dojrzałość (przypominanie), schyłek (podtrzymywanie)",
+     "Tylko promocja sprzedaży"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Komunikacja marketingowa zmienia się w zależności od fazy cyklu życia produktu: od budowania świadomości w fazie wprowadzenia, przez wzmacnianie pozycji w fazie wzrostu, po przypominanie w dojrzałości i podtrzymywanie w fazie schyłkowej.",
+     incorrect: [
+       "Komunikacja musi być dostosowana do specyfiki każdej fazy.",
+       "Promocja sprzedaży to tylko jedno z narzędzi komunikacji marketingowej."
+     ]
+   }
+ },
+ {
+   question: "Jaki wpływ mają nowe technologie na komunikację marketingową?",
+   answers: [
+     "Tylko zwiększenie zasięgu",
+     "Personalizacja przekazu, interaktywność, mierzalność efektów, nowe kanały komunikacji",
+     "Wyłącznie obniżenie kosztów"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Nowe technologie umożliwiają personalizację przekazu, zwiększają interaktywność, pozwalają na precyzyjne mierzenie efektów i otwierają nowe kanały komunikacji.",
+     incorrect: [
+       "Wpływ technologii jest szerszy niż tylko zwiększenie zasięgu.",
+       "Obniżenie kosztów to tylko jeden z aspektów wpływu nowych technologii."
+     ]
+   }
+ },
+ {
+   question: "Co to jest branding?",
+   answers: [
+     "Tylko projektowanie logo",
+     "Strategiczny proces budowania i zarządzania marką",
+     "Wyłącznie reklama produktów"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Branding to strategiczny proces budowania i zarządzania marką, mający na celu tworzenie unikalnej i wartościowej tożsamości w umysłach konsumentów.",
+     incorrect: [
+       "Logo to tylko jeden z elementów brandingu.",
+       "Reklama produktów to tylko część działań brandingowych."
+     ]
+   }
+ },
+ {
+   question: "Co to jest rebranding i jakie są jego powody?",
+   answers: [
+     "Tylko zmiana logo",
+     "Strategiczna zmiana tożsamości marki wynikająca z różnych przyczyn biznesowych",
+     "Wyłącznie zmiana nazwy"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Rebranding to strategiczny proces zmiany tożsamości marki, wynikający z fuzji, przestarzałego wizerunku, negatywnych skojarzeń, zmiany strategii lub potrzeby wyróżnienia się.",
+     incorrect: [
+       "Zmiana logo to tylko jeden z elementów rebrandingu.",
+       "Zmiana nazwy to tylko jeden z możliwych elementów rebrandingu."
+     ]
+   }
+ },
+ {
+   question: "Co to jest reklama video?",
+   answers: [
+     "Tylko reklama telewizyjna",
+     "Forma komunikacji wykorzystująca ruchomy obraz i dźwięk w różnych mediach",
+     "Wyłącznie reklamy w internecie"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Reklama video to forma komunikacji marketingowej wykorzystująca ruchomy obraz i dźwięk, występująca w różnych formach: od spotów TV po treści w mediach społecznościowych.",
+     incorrect: [
+       "Reklama video nie ogranicza się do telewizji.",
+       "Nie ogranicza się tylko do internetu."
+     ]
+   }
+ },
+ {
+   question: "Jak wykorzystywana jest grafika komputerowa w reklamie?",
+   answers: [
+     "Tylko do tworzenia logo",
+     "Do tworzenia różnych form przekazu: od layoutów po animacje i efekty specjalne",
+     "Wyłącznie w reklamie internetowej"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Grafika komputerowa w reklamie służy do tworzenia layoutów, materiałów promocyjnych, animacji, efektów specjalnych, wizualizacji produktowych i różnych form przekazu reklamowego.",
+     incorrect: [
+       "Wykorzystanie grafiki komputerowej jest znacznie szersze niż tylko tworzenie logo.",
+       "Grafika komputerowa jest używana we wszystkich formach reklamy, nie tylko internetowej."
+     ]
+   }
+ },
+ {
+   question: "Jakie znaczenie ma komunikacja wizualna w działaniach marketingowych?",
+   answers: [
+     "Tylko estetyczne",
+     "Buduje rozpoznawalność marki, przekazuje informacje i wpływa na decyzje zakupowe",
+     "Wyłącznie dekoracyjne"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Komunikacja wizualna odgrywa kluczową rolę w budowaniu rozpoznawalności marki, przekazywaniu informacji, wpływaniu na emocje i decyzje zakupowe konsumentów.",
+     incorrect: [
+       "Znaczenie komunikacji wizualnej wykracza poza aspekty estetyczne.",
+       "Nie pełni wyłącznie funkcji dekoracyjnej."
+     ]
+   }
+ }
+ {
+   question: "Jakie są podstawowe prawne uwarunkowania reklamy?",
+   answers: [
+     "Tylko zakazy dotyczące wybranych produktów",
+     "Kompleksowe regulacje dotyczące uczciwej konkurencji, ochrony konsumentów, zakazów i ograniczeń",
+     "Wyłącznie przepisy o czasie emisji"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Podstawowe akty prawne obejmują Ustawę o zwalczaniu nieuczciwej konkurencji, Ustawę o przeciwdziałaniu nieuczciwym praktykom rynkowym, oraz szczegółowe regulacje dotyczące różnych produktów i form reklamy.",
+     incorrect: [
+       "Regulacje są szersze niż tylko zakazy dotyczące produktów.",
+       "Czas emisji to tylko jeden z wielu aspektów regulacji prawnych."
+     ]
+   }
+ },
+ {
+   question: "Jakie dokumenty regulują reklamę w Polsce?",
+   answers: [
+     "Tylko jedna ustawa",
+     "Szereg ustaw, rozporządzeń i kodeksów branżowych",
+     "Wyłącznie regulacje unijne"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Reklamę regulują różne dokumenty: ustawy (o radiofonii i telewizji, o zwalczaniu nieuczciwej konkurencji), rozporządzenia KRRiT, kodeksy etyki reklamy oraz regulacje branżowe.",
+     incorrect: [
+       "Regulacje reklamowe są zawarte w wielu dokumentach.",
+       "Polskie prawo reklamy nie opiera się wyłącznie na regulacjach UE."
+     ]
+   }
+ },
+ {
+   question: "Czy wszystkie branże mogą reklamować się na tych samych zasadach?",
+   answers: [
+     "Tak, zasady są identyczne dla wszystkich",
+     "Nie, istnieją szczególne ograniczenia dla określonych branż i produktów",
+     "Zależy tylko od budżetu reklamowego"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Różne branże podlegają różnym regulacjom. Szczególne ograniczenia dotyczą np. branży farmaceutycznej, alkoholowej, tytoniowej. Niektóre produkty podlegają całkowitemu zakazowi reklamy.",
+     incorrect: [
+       "Zasady różnią się w zależności od branży i produktu.",
+       "Możliwość reklamy nie zależy od budżetu, ale od regulacji prawnych."
+     ]
+   }
+ },
+ {
+   question: "Jakie są zasady reklamy kierowanej do dzieci?",
+   answers: [
+     "Brak specjalnych regulacji",
+     "Szczególne ograniczenia chroniące dzieci przed wykorzystaniem ich łatwowierności",
+     "Całkowity zakaz"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Reklama kierowana do dzieci podlega szczególnym regulacjom: nie może wykorzystywać ich łatwowierności, nie może bezpośrednio nakłaniać do zakupu, musi być dostosowana do wieku odbiorców.",
+     incorrect: [
+       "Istnieją specjalne regulacje chroniące dzieci.",
+       "Nie ma całkowitego zakazu, ale istnieją ścisłe ograniczenia."
+     ]
+   }
+ },
+ {
+   question: "Co obejmuje prawo autorskie?",
+   answers: [
+     "Tylko utwory literackie",
+     "Wszelkie przejawy działalności twórczej o indywidualnym charakterze",
+     "Wyłącznie dzieła zarejestrowane"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Prawo autorskie obejmuje każdy przejaw działalności twórczej o indywidualnym charakterze, wyrażony w jakiejkolwiek formie, niezależnie od wartości i przeznaczenia.",
+     incorrect: [
+       "Ochrona nie ogranicza się do utworów literackich.",
+       "Ochrona powstaje automatycznie, nie wymaga rejestracji."
+     ]
+   }
+ },
+ {
+   question: "Czym różnią się prawa autorskie osobiste od majątkowych?",
+   answers: [
+     "Nie ma różnicy",
+     "Osobiste są niezbywalne i chronią więź twórcy z utworem, majątkowe dotyczą ekonomicznej eksploatacji",
+     "Różnią się tylko czasem trwania"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Prawa osobiste są niezbywalne i chronią więź twórcy z utworem, podczas gdy prawa majątkowe dotyczą ekonomicznej eksploatacji utworu i mogą być zbywane.",
+     incorrect: [
+       "Istnieją fundamentalne różnice między tymi prawami.",
+       "Różnice wykraczają poza czas trwania ochrony."
+     ]
+   }
+ },
+ {
+   question: "Co oznaczają symbole ® © TM w kontekście znaków towarowych?",
+   answers: [
+     "Są tylko ozdobnikami",
+     "Oznaczają różne formy ochrony prawnej: zarejestrowany znak towarowy, prawo autorskie, znak towarowy",
+     "Wszystkie oznaczają to samo"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "® oznacza zarejestrowany znak towarowy, © oznacza zastrzeżenie praw autorskich, TM wskazuje na używanie oznaczenia jako znaku towarowego (nawet przed rejestracją).",
+     incorrect: [
+       "Symbole mają konkretne znaczenie prawne.",
+       "Każdy symbol ma inne znaczenie i zastosowanie."
+     ]
+   }
+ },
+ {
+   question: "Co to jest plagiat?",
+   answers: [
+     "Każde podobieństwo między utworami",
+     "Bezprawne przywłaszczenie autorstwa cudzego utworu lub jego części",
+     "Tylko dosłowne kopiowanie"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Plagiat to bezprawne przywłaszczenie autorstwa cudzego utworu lub jego części, może mieć formę jawną (dosłowne kopiowanie) lub ukrytą (parafrazowanie bez podania źródła).",
+     incorrect: [
+       "Nie każde podobieństwo stanowi plagiat.",
+       "Plagiat może dotyczyć także niedosłownego zapożyczenia."
+     ]
+   }
+ },
+ {
+   question: "Na czym polega zbywalność praw autorskich?",
+   answers: [
+     "Wszystkie prawa autorskie są zbywalne",
+     "Tylko prawa majątkowe mogą być zbywane, osobiste są niezbywalne",
+     "Żadne prawa nie są zbywalne"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Prawa majątkowe mogą być zbywane (sprzedawane, licencjonowane), podczas gdy prawa osobiste są niezbywalne i zawsze pozostają przy twórcy.",
+     incorrect: [
+       "Nie wszystkie prawa autorskie można zbyć.",
+       "Prawa majątkowe są zbywalne."
+     ]
+   }
+ },
+ {
+   question: "Jak chronione są znaki towarowe?",
+   answers: [
+     "Tylko przez rejestrację międzynarodową",
+     "Przez rejestrację krajową lub międzynarodową, z możliwością ochrony również niezarejestrowanych oznaczeń",
+     "Ochrona powstaje automatycznie"
+   ],
+   correct: 1,
+   explanation: {
+     correct: "Znaki towarowe mogą być chronione przez rejestrację krajową lub międzynarodową, ale pewną ochronę zapewnia też prawo do niezarejestrowanego oznaczenia używanego w obrocie.",
+     incorrect: [
+       "Istnieją różne formy ochrony, nie tylko międzynarodowa.",
+       "Pełna ochrona wymaga rejestracji."
+     ]
+   }
+ },
+ {
+    question: "Czym charakteryzuje się secesja jako styl w sztuce?",
+    answers: [
+      "Tylko geometryczne formy",
+      "Płynne linie, asymetryczne kompozycje, inspiracja naturą, motywy roślinne i zwierzęce",
+      "Wyłącznie monochromatyczne kompozycje"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Secesja charakteryzuje się płynnymi, falistymi liniami, asymetrycznymi kompozycjami oraz inspiracją naturą - szczególnie motywami roślinnymi i zwierzęcymi, a także postaciami kobiecymi o długich, falujących włosach.",
+      incorrect: [
+        "Secesja unikała sztywnych, geometrycznych form na rzecz płynnych linii.",
+        "Secesja często wykorzystywała stonowane, pastelowe barwy."
+      ]
+    }
+  },
+  {
+    question: "Kiedy rozwijała się secesja i jaki był jej wpływ na sztukę użytkową?",
+    answers: [
+      "Tylko w XVII wieku, bez wpływu na sztukę użytkową",
+      "Przełom XIX i XX wieku (1890-1914), znaczący wpływ na meble, biżuterię, ceramikę i grafikę użytkową",
+      "Tylko w XXI wieku"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Secesja rozwijała się na przełomie XIX i XX wieku (ok. 1890-1914), miała duży wpływ na sztukę użytkową - meble, biżuterię, ceramikę, szkło artystyczne oraz grafikę użytkową.",
+      incorrect: [
+        "Secesja nie istniała w XVII wieku.",
+        "Secesja to styl historyczny, nie współczesny."
+      ]
+    }
+  },
+  {
+    question: "Co to są piktogramy i jakie jest ich znaczenie?",
+    answers: [
+      "Tylko dekoracyjne elementy graficzne",
+      "Uproszczone znaki graficzne przedstawiające pojęcia, obiekty lub czynności w formie łatwej do zrozumienia",
+      "Wyłącznie litery alfabetu"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Piktogramy to uproszczone znaki graficzne przedstawiające pojęcia, obiekty lub czynności w schematycznej formie, służące szybkiej i uniwersalnej komunikacji wizualnej.",
+      incorrect: [
+        "Piktogramy mają funkcję komunikacyjną, nie tylko dekoracyjną.",
+        "Piktogramy nie ograniczają się do liter."
+      ]
+    }
+  },
+  {
+    question: "Jak wygląda proces projektowania piktogramów?",
+    answers: [
+      "Spontaniczne tworzenie bez analizy",
+      "Analiza kontekstu, uproszczenie formy, testowanie zrozumiałości, zachowanie spójności",
+      "Tylko kopiowanie istniejących wzorów"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Proces projektowania piktogramów obejmuje analizę kontekstu użycia, określenie kluczowych elementów znaczeniowych, uproszczenie formy przy zachowaniu czytelności oraz testowanie zrozumiałości.",
+      incorrect: [
+        "Projektowanie piktogramów wymaga metodycznego podejścia.",
+        "Kopiowanie nie jest właściwym podejściem do projektowania piktogramów."
+      ]
+    }
+  },
+  {
+    question: "Co składa się na system identyfikacji wizualnej?",
+    answers: [
+      "Tylko logo",
+      "Logotyp, księga znaku, kolorystyka, typografia oraz ich zastosowanie na różnych nośnikach",
+      "Wyłącznie strona internetowa"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "System identyfikacji wizualnej to kompleksowy zbiór elementów: logotyp, księga znaku, kolorystyka firmowa, typografia, wzory i elementy graficzne oraz ich zastosowanie na różnych nośnikach.",
+      incorrect: [
+        "Logo to tylko jeden z elementów systemu identyfikacji wizualnej.",
+        "Strona internetowa to tylko jeden z nośników identyfikacji wizualnej."
+      ]
+    }
+  },
+  {
+    question: "Czym jest księga znaku i jakie ma znaczenie dla systemu identyfikacji wizualnej?",
+    answers: [
+      "Katalog produktów firmy",
+      "Dokument techniczny określający zasady stosowania elementów identyfikacji wizualnej",
+      "Album ze zdjęciami firmy"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Księga znaku to dokument techniczny określający zasady poprawnego stosowania logotypu i podstawowych elementów identyfikacji wizualnej, zapewniający spójność wizerunku marki.",
+      incorrect: [
+        "Księga znaku nie jest katalogiem produktów.",
+        "To nie jest album fotograficzny, lecz dokument techniczny."
+      ]
+    }
+  }
+ 
   ];
 
   let currentQuestion = 0;
